@@ -1,5 +1,5 @@
 /**
- * Your Apartments - Main JavaScript
+ * Irene Apartments - Main JavaScript
  * Handles all interactive functionality
  */
 
