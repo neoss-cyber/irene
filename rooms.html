@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Apartments | Your Apartments</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        .rooms-grid {
+            display: grid;
+            gap: var(--space-xl);
+        }
+
+        .room-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-xl);
+            padding: var(--space-xl) 0;
+            border-bottom: 1px solid var(--color-gray-light);
+        }
+
+        .room-detail:nth-child(even) {
+            direction: rtl;
+        }
+
+        .room-detail:nth-child(even) > * {
+            direction: ltr;
+        }
+
+        .room-detail:last-child {
+            border-bottom: none;
+        }
+
+        .room-gallery {
+            position: relative;
+        }
+
+        .room-main-image {
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            height: 400px;
+        }
+
+        .room-main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-primary) 100%);
+        }
+
+        .room-thumbnails {
+            display: flex;
+            gap: var(--space-sm);
+            margin-top: var(--space-sm);
+        }
+
+        .room-thumb {
+            width: 80px;
+            height: 60px;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity var(--transition-fast);
+        }
+
+        .room-thumb:hover,
+        .room-thumb.active {
+            opacity: 1;
+        }
+
+        .room-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-primary) 100%);
+        }
+
+        .room-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .room-type {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+        }
+
+        .room-title {
+            font-size: 2rem;
+            margin: var(--space-xs) 0 var(--space-md);
+        }
+
+        .room-description {
+            color: var(--color-gray-dark);
+            margin-bottom: var(--space-md);
+            line-height: 1.8;
+        }
+
+        .room-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+
+        .room-feature {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            font-size: 0.9rem;
+            color: var(--color-gray-dark);
+        }
+
+        .room-feature .material-icons {
+            font-size: 1.1rem;
+            color: var(--color-accent);
+        }
+
+        .room-price {
+            margin-top: auto;
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--color-gray-light);
+        }
+
+        .price-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-gray);
+        }
+
+        .price-value {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            color: var(--color-primary);
+        }
+
+        .price-value span {
+            font-size: 1rem;
+            color: var(--color-gray);
+        }
+
+        .room-actions {
+            display: flex;
+            gap: var(--space-sm);
+            margin-top: var(--space-md);
+        }
+
+        @media (max-width: 992px) {
+            .room-detail,
+            .room-detail:nth-child(even) {
+                grid-template-columns: 1fr;
+                direction: ltr;
+            }
+
+            .room-main-image {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">YOUR APARTMENTS</span>
+            </a>
+            
+            <nav class="nav" id="nav">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="rooms.html" class="nav-link active">Apartments</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <div class="language-selector">
+                    <span class="current-lang">EN</span>
+                    <ul class="lang-dropdown">
+                        <li><a href="#">English</a></li>
+                        <li><a href="#">Ελληνικά</a></li>
+                    </ul>
+                </div>
+                <a href="index.html#booking" class="btn btn-book">Book Now</a>
+            </div>
+
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <span class="section-badge">Accommodations</span>
+            <h1 class="section-title">Our Apartments</h1>
+            <nav class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span class="material-icons" style="font-size: 1rem;">chevron_right</span>
+                <span>Apartments</span>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Rooms List -->
+    <section class="rooms-section" style="background: var(--color-white);">
+        <div class="container">
+            <div class="rooms-grid">
+                <!-- Signature Suite -->
+                <article class="room-detail" id="signature-suite">
+                    <div class="room-gallery">
+                        <div class="room-main-image">
+                            <img src="images/apartments/signature-suite.jpg" alt="Signature Suite">
+                        </div>
+                        <div class="room-thumbnails">
+                            <div class="room-thumb active">
+                                <img src="images/apartments/signature-suite.jpg" alt="Suite View 1">
+                            </div>
+                            <div class="room-thumb">
+                                <img src="images/apartments/signature-suite-2.jpg" alt="Suite View 2">
+                            </div>
+                            <div class="room-thumb">
+                                <img src="images/apartments/signature-suite-3.jpg" alt="Suite View 3">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="room-info">
+                        <span class="room-type">Premium Suite</span>
+                        <h2 class="room-title">Signature Suite</h2>
+                        <p class="room-description">
+                            The Signature Suite is a unique space that combines high standards, 
+                            exceptional design and the most beautiful panoramic views of the city. 
+                            Experience luxury at its finest with premium amenities and personalized service.
+                        </p>
+                        <div class="room-features">
+                            <div class="room-feature">
+                                <span class="material-icons">king_bed</span>
+                                <span>King Size Bed</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">square_foot</span>
+                                <span>45 m²</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">landscape</span>
+                                <span>City View</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">people</span>
+                                <span>2 Guests</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">wifi</span>
+                                <span>Free Wi-Fi</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">ac_unit</span>
+                                <span>Air Conditioning</span>
+                            </div>
+                        </div>
+                        <div class="room-price">
+                            <span class="price-label">From</span>
+                            <div class="price-value">€150 <span>/ night</span></div>
+                        </div>
+                        <div class="room-actions">
+                            <a href="index.html#booking" class="btn btn-primary">Book Now</a>
+                            <a href="contact.html" class="btn btn-outline">Inquire</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Sea View Apartment -->
+                <article class="room-detail" id="sea-view">
+                    <div class="room-gallery">
+                        <div class="room-main-image">
+                            <img src="images/apartments/sea-view.jpg" alt="Sea View Apartment">
+                        </div>
+                        <div class="room-thumbnails">
+                            <div class="room-thumb active">
+                                <img src="images/apartments/sea-view.jpg" alt="Sea View 1">
+                            </div>
+                            <div class="room-thumb">
+                                <img src="images/apartments/sea-view-2.jpg" alt="Sea View 2">
+                            </div>
+                            <div class="room-thumb">
+                                <img src="images/apartments/sea-view-3.jpg" alt="Sea View 3">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="room-info">
+                        <span class="room-type">Apartment</span>
+                        <h2 class="room-title">Sea View Apartment</h2>
+                        <p class="room-description">
+                            Ready to cover every modern need, combining stunning sea views 
+                            that guarantee you a truly unforgettable stay. Wake up to the 
+                            breathtaking vista of the sparkling waters each morning.
+                        </p>
+                        <div class="room-features">
+                            <div class="room-feature">
+                                <span class="material-icons">king_bed</span>
+                                <span>Queen Size Bed</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">square_foot</span>
+                                <span>35 m²</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">waves</span>
+                                <span>Sea View</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">people</span>
+                                <span>2 Guests</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">wifi</span>
+                                <span>Free Wi-Fi</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">kitchen</span>
+                                <span>Kitchenette</span>
+                            </div>
+                        </div>
+                        <div class="room-price">
+                            <span class="price-label">From</span>
+                            <div class="price-value">€120 <span>/ night</span></div>
+                        </div>
+                        <div class="room-actions">
+                            <a href="index.html#booking" class="btn btn-primary">Book Now</a>
+                            <a href="contact.html" class="btn btn-outline">Inquire</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Junior Suite -->
+                <article class="room-detail" id="junior-suite">
+                    <div class="room-gallery">
+                        <div class="room-main-image">
+                            <img src="images/apartments/junior-suite.jpg" alt="Junior Suite">
+                        </div>
+                        <div class="room-thumbnails">
+                            <div class="room-thumb active">
+                                <img src="images/apartments/junior-suite.jpg" alt="Junior Suite 1">
+                            </div>
+                            <div class="room-thumb">
+                                <img src="images/apartments/junior-suite-2.jpg" alt="Junior Suite 2">
+                            </div>
+                            <div class="room-thumb">
+                                <img src="images/apartments/junior-suite-3.jpg" alt="Junior Suite 3">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="room-info">
+                        <span class="room-type">Suite</span>
+                        <h2 class="room-title">Junior Suite</h2>
+                        <p class="room-description">
+                            Elegant, comfortable and exceptionally pleasant aesthetically, 
+                            our Junior Suite provides high standards of a modern suite with 
+                            all the amenities you need for a perfect stay.
+                        </p>
+                        <div class="room-features">
+                            <div class="room-feature">
+                                <span class="material-icons">king_bed</span>
+                                <span>King Size Bed</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">square_foot</span>
+                                <span>40 m²</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">landscape</span>
+                                <span>City View</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">people</span>
+                                <span>2 Guests</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">bathtub</span>
+                                <span>Luxury Bathroom</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">coffee_maker</span>
+                                <span>Coffee Machine</span>
+                            </div>
+                        </div>
+                        <div class="room-price">
+                            <span class="price-label">From</span>
+                            <div class="price-value">€130 <span>/ night</span></div>
+                        </div>
+                        <div class="room-actions">
+                            <a href="index.html#booking" class="btn btn-primary">Book Now</a>
+                            <a href="contact.html" class="btn btn-outline">Inquire</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Family Apartment -->
+                <article class="room-detail" id="family-apartment">
+                    <div class="room-gallery">
+                        <div class="room-main-image">
+                            <img src="images/apartments/family-apartment.jpg" alt="Family Apartment">
+                        </div>
+                        <div class="room-thumbnails">
+                            <div class="room-thumb active">
+                                <img src="images/apartments/family-apartment.jpg" alt="Family 1">
+                            </div>
+                            <div class="room-thumb">
+                                <img src="images/apartments/family-apartment-2.jpg" alt="Family 2">
+                            </div>
+                            <div class="room-thumb">
+                                <img src="images/apartments/family-apartment-3.jpg" alt="Family 3">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="room-info">
+                        <span class="room-type">Family</span>
+                        <h2 class="room-title">Family Apartment</h2>
+                        <p class="room-description">
+                            Ideal for families with children. The apartment consists of 
+                            spacious rooms providing comfortable beds and modern amenities. 
+                            Connected rooms ensure privacy while keeping the family together.
+                        </p>
+                        <div class="room-features">
+                            <div class="room-feature">
+                                <span class="material-icons">king_bed</span>
+                                <span>2 Queen Beds</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">square_foot</span>
+                                <span>55 m²</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">meeting_room</span>
+                                <span>2 Rooms</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">people</span>
+                                <span>4 Guests</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">child_friendly</span>
+                                <span>Child Friendly</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">kitchen</span>
+                                <span>Full Kitchen</span>
+                            </div>
+                        </div>
+                        <div class="room-price">
+                            <span class="price-label">From</span>
+                            <div class="price-value">€180 <span>/ night</span></div>
+                        </div>
+                        <div class="room-actions">
+                            <a href="index.html#booking" class="btn btn-primary">Book Now</a>
+                            <a href="contact.html" class="btn btn-outline">Inquire</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Loft Apartment -->
+                <article class="room-detail" id="loft">
+                    <div class="room-gallery">
+                        <div class="room-main-image">
+                            <img src="images/apartments/loft.jpg" alt="Loft Apartment">
+                        </div>
+                        <div class="room-thumbnails">
+                            <div class="room-thumb active">
+                                <img src="images/apartments/loft.jpg" alt="Loft 1">
+                            </div>
+                            <div class="room-thumb">
+                                <img src="images/apartments/loft-2.jpg" alt="Loft 2">
+                            </div>
+                            <div class="room-thumb">
+                                <img src="images/apartments/loft-3.jpg" alt="Loft 3">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="room-info">
+                        <span class="room-type">Loft</span>
+                        <h2 class="room-title">Loft Apartment</h2>
+                        <p class="room-description">
+                            Combining contemporary aesthetics and floor-to-ceiling windows, 
+                            our Loft Apartment adds a bright, light and relaxing feeling to your stay. 
+                            Modern design meets comfort in this unique space.
+                        </p>
+                        <div class="room-features">
+                            <div class="room-feature">
+                                <span class="material-icons">king_bed</span>
+                                <span>Queen Size Bed</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">square_foot</span>
+                                <span>38 m²</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">height</span>
+                                <span>High Ceilings</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">people</span>
+                                <span>2 Guests</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">wb_sunny</span>
+                                <span>Natural Light</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">balcony</span>
+                                <span>Balcony</span>
+                            </div>
+                        </div>
+                        <div class="room-price">
+                            <span class="price-label">From</span>
+                            <div class="price-value">€110 <span>/ night</span></div>
+                        </div>
+                        <div class="room-actions">
+                            <a href="index.html#booking" class="btn btn-primary">Book Now</a>
+                            <a href="contact.html" class="btn btn-outline">Inquire</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Deluxe Apartment -->
+                <article class="room-detail" id="deluxe">
+                    <div class="room-gallery">
+                        <div class="room-main-image">
+                            <img src="images/apartments/deluxe.jpg" alt="Deluxe Apartment">
+                        </div>
+                        <div class="room-thumbnails">
+                            <div class="room-thumb active">
+                                <img src="images/apartments/deluxe.jpg" alt="Deluxe 1">
+                            </div>
+                            <div class="room-thumb">
+                                <img src="images/apartments/deluxe-2.jpg" alt="Deluxe 2">
+                            </div>
+                            <div class="room-thumb">
+                                <img src="images/apartments/deluxe-3.jpg" alt="Deluxe 3">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="room-info">
+                        <span class="room-type">Deluxe</span>
+                        <h2 class="room-title">Deluxe Apartment</h2>
+                        <p class="room-description">
+                            Unique and contemporary design will make your stay unforgettable 
+                            in the center of the city. Premium finishes and thoughtful 
+                            amenities create the perfect urban retreat.
+                        </p>
+                        <div class="room-features">
+                            <div class="room-feature">
+                                <span class="material-icons">king_bed</span>
+                                <span>King Size Bed</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">square_foot</span>
+                                <span>42 m²</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">landscape</span>
+                                <span>City View</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">people</span>
+                                <span>2 Guests</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">spa</span>
+                                <span>Premium Bath</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">local_bar</span>
+                                <span>Mini Bar</span>
+                            </div>
+                        </div>
+                        <div class="room-price">
+                            <span class="price-label">From</span>
+                            <div class="price-value">€140 <span>/ night</span></div>
+                        </div>
+                        <div class="room-actions">
+                            <a href="index.html#booking" class="btn btn-primary">Book Now</a>
+                            <a href="contact.html" class="btn btn-outline">Inquire</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Studio Apartment -->
+                <article class="room-detail" id="studio">
+                    <div class="room-gallery">
+                        <div class="room-main-image">
+                            <img src="images/apartments/studio.jpg" alt="Studio Apartment">
+                        </div>
+                        <div class="room-thumbnails">
+                            <div class="room-thumb active">
+                                <img src="images/apartments/studio.jpg" alt="Studio 1">
+                            </div>
+                            <div class="room-thumb">
+                                <img src="images/apartments/studio-2.jpg" alt="Studio 2">
+                            </div>
+                            <div class="room-thumb">
+                                <img src="images/apartments/studio-3.jpg" alt="Studio 3">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="room-info">
+                        <span class="room-type">Studio</span>
+                        <h2 class="room-title">Studio Apartment</h2>
+                        <p class="room-description">
+                            The ideal space to savor your stay, perfect for enjoying 
+                            nice moments of relaxation. Compact yet comfortable, with 
+                            everything you need for a pleasant stay.
+                        </p>
+                        <div class="room-features">
+                            <div class="room-feature">
+                                <span class="material-icons">single_bed</span>
+                                <span>Double Bed</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">square_foot</span>
+                                <span>25 m²</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">landscape</span>
+                                <span>City View</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">people</span>
+                                <span>2 Guests</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">wifi</span>
+                                <span>Free Wi-Fi</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">shower</span>
+                                <span>Rain Shower</span>
+                            </div>
+                        </div>
+                        <div class="room-price">
+                            <span class="price-label">From</span>
+                            <div class="price-value">€85 <span>/ night</span></div>
+                        </div>
+                        <div class="room-actions">
+                            <a href="index.html#booking" class="btn btn-primary">Book Now</a>
+                            <a href="contact.html" class="btn btn-outline">Inquire</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Urban Apartment -->
+                <article class="room-detail" id="urban">
+                    <div class="room-gallery">
+                        <div class="room-main-image">
+                            <img src="images/apartments/urban.jpg" alt="Urban Apartment">
+                        </div>
+                        <div class="room-thumbnails">
+                            <div class="room-thumb active">
+                                <img src="images/apartments/urban.jpg" alt="Urban 1">
+                            </div>
+                            <div class="room-thumb">
+                                <img src="images/apartments/urban-2.jpg" alt="Urban 2">
+                            </div>
+                            <div class="room-thumb">
+                                <img src="images/apartments/urban-3.jpg" alt="Urban 3">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="room-info">
+                        <span class="room-type">Urban</span>
+                        <h2 class="room-title">Urban Apartment</h2>
+                        <p class="room-description">
+                            Modern comfort meets city living in our thoughtfully designed 
+                            Urban Apartments. Perfect for business travelers or city 
+                            explorers looking for a stylish base.
+                        </p>
+                        <div class="room-features">
+                            <div class="room-feature">
+                                <span class="material-icons">single_bed</span>
+                                <span>Queen Size Bed</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">square_foot</span>
+                                <span>28 m²</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">location_city</span>
+                                <span>Urban View</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">people</span>
+                                <span>2 Guests</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">desktop_windows</span>
+                                <span>Work Desk</span>
+                            </div>
+                            <div class="room-feature">
+                                <span class="material-icons">coffee</span>
+                                <span>Coffee Maker</span>
+                            </div>
+                        </div>
+                        <div class="room-price">
+                            <span class="price-label">From</span>
+                            <div class="price-value">€95 <span>/ night</span></div>
+                        </div>
+                        <div class="room-actions">
+                            <a href="index.html#booking" class="btn btn-primary">Book Now</a>
+                            <a href="contact.html" class="btn btn-outline">Inquire</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">YOUR APARTMENTS</a>
+                    <p class="footer-tagline">Luxury Living in the Heart of the City</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook"><span class="material-icons">facebook</span></a>
+                        <a href="#" aria-label="Instagram"><span class="material-icons">photo_camera</span></a>
+                        <a href="#" aria-label="WhatsApp"><span class="material-icons">chat</span></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="rooms.html">Apartments</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Reservations</h4>
+                    <ul>
+                        <li><a href="index.html#booking">Book Now</a></li>
+                        <li><a href="rooms.html">View Rooms</a></li>
+                        <li><a href="#">Cancellation Policy</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-contact">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li>
+                            <span class="material-icons">location_on</span>
+                            <span>Your Address Here, City</span>
+                        </li>
+                        <li>
+                            <span class="material-icons">phone</span>
+                            <a href="tel:+301234567890">+30 123 456 7890</a>
+                        </li>
+                        <li>
+                            <span class="material-icons">email</span>
+                            <a href="mailto:info@yourapartments.com">info@yourapartments.com</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Your Apartments. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <span class="material-icons">keyboard_arrow_up</span>
+    </button>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
+

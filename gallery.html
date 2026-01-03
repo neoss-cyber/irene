@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery | Your Apartments</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        .gallery-section {
+            padding: var(--space-2xl) 0;
+            background: var(--color-white);
+        }
+
+        .gallery-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-xl);
+        }
+
+        .filter-btn {
+            padding: 0.625rem 1.5rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--color-gray-dark);
+            background: transparent;
+            border: 1px solid var(--color-gray-light);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-md);
+        }
+
+        .gallery-item {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .gallery-item.wide {
+            grid-column: span 2;
+            aspect-ratio: 2/1;
+        }
+
+        .gallery-item.tall {
+            grid-row: span 2;
+            aspect-ratio: 1/2;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-slow);
+            /* Placeholder background */
+            background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-primary) 100%);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                rgba(26, 42, 58, 0.7) 100%
+            );
+            opacity: 0;
+            transition: opacity var(--transition-base);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: var(--space-md);
+        }
+
+        .gallery-item:hover .gallery-item-overlay {
+            opacity: 1;
+        }
+
+        .gallery-item-title {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            color: var(--color-white);
+            margin-bottom: var(--space-xs);
+        }
+
+        .gallery-item-category {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+        }
+
+        .gallery-item-zoom {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            width: 50px;
+            height: 50px;
+            background: var(--color-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all var(--transition-base);
+        }
+
+        .gallery-item:hover .gallery-item-zoom {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .gallery-item-zoom .material-icons {
+            color: var(--color-primary-dark);
+        }
+
+        /* Lightbox Styles */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition-base);
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            cursor: pointer;
+        }
+
+        .lightbox-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .lightbox-image {
+            max-width: 100%;
+            max-height: 85vh;
+            border-radius: var(--radius-md);
+        }
+
+        .lightbox-close,
+        .lightbox-prev,
+        .lightbox-next {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: var(--color-white);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background var(--transition-fast);
+        }
+
+        .lightbox-close:hover,
+        .lightbox-prev:hover,
+        .lightbox-next:hover {
+            background: var(--color-accent);
+            color: var(--color-primary-dark);
+        }
+
+        .lightbox-close {
+            top: 20px;
+            right: 20px;
+        }
+
+        .lightbox-prev {
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+        }
+
+        .lightbox-next {
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+        }
+
+        @media (max-width: 992px) {
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-item.wide {
+                grid-column: span 2;
+            }
+
+            .gallery-item.tall {
+                grid-row: span 1;
+                aspect-ratio: 1;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-item.wide {
+                grid-column: span 1;
+                aspect-ratio: 4/3;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">YOUR APARTMENTS</span>
+            </a>
+            
+            <nav class="nav" id="nav">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="rooms.html" class="nav-link">Apartments</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="gallery.html" class="nav-link active">Gallery</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <div class="language-selector">
+                    <span class="current-lang">EN</span>
+                    <ul class="lang-dropdown">
+                        <li><a href="#">English</a></li>
+                        <li><a href="#">Ελληνικά</a></li>
+                    </ul>
+                </div>
+                <a href="index.html#booking" class="btn btn-book">Book Now</a>
+            </div>
+
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <span class="section-badge">Explore</span>
+            <h1 class="section-title">Photo Gallery</h1>
+            <nav class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span class="material-icons" style="font-size: 1rem;">chevron_right</span>
+                <span>Gallery</span>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+        <div class="container">
+            <!-- Filter Buttons -->
+            <div class="gallery-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="apartments">Apartments</button>
+                <button class="filter-btn" data-filter="amenities">Amenities</button>
+                <button class="filter-btn" data-filter="views">Views</button>
+                <button class="filter-btn" data-filter="exterior">Exterior</button>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div class="gallery-grid">
+                <!-- Image 1 -->
+                <div class="gallery-item wide" data-category="apartments">
+                    <img src="images/gallery/gallery-1.jpg" alt="Signature Suite Living Room">
+                    <div class="gallery-item-overlay">
+                        <span class="gallery-item-category">Apartments</span>
+                        <h3 class="gallery-item-title">Signature Suite</h3>
+                    </div>
+                    <div class="gallery-item-zoom">
+                        <span class="material-icons">zoom_in</span>
+                    </div>
+                </div>
+
+                <!-- Image 2 -->
+                <div class="gallery-item" data-category="views">
+                    <img src="images/gallery/gallery-2.jpg" alt="Sea View from Balcony">
+                    <div class="gallery-item-overlay">
+                        <span class="gallery-item-category">Views</span>
+                        <h3 class="gallery-item-title">Sea View</h3>
+                    </div>
+                    <div class="gallery-item-zoom">
+                        <span class="material-icons">zoom_in</span>
+                    </div>
+                </div>
+
+                <!-- Image 3 -->
+                <div class="gallery-item" data-category="apartments">
+                    <img src="images/gallery/gallery-3.jpg" alt="Modern Bedroom">
+                    <div class="gallery-item-overlay">
+                        <span class="gallery-item-category">Apartments</span>
+                        <h3 class="gallery-item-title">Modern Bedroom</h3>
+                    </div>
+                    <div class="gallery-item-zoom">
+                        <span class="material-icons">zoom_in</span>
+                    </div>
+                </div>
+
+                <!-- Image 4 -->
+                <div class="gallery-item tall" data-category="exterior">
+                    <img src="images/gallery/gallery-4.jpg" alt="Building Exterior">
+                    <div class="gallery-item-overlay">
+                        <span class="gallery-item-category">Exterior</span>
+                        <h3 class="gallery-item-title">Our Building</h3>
+                    </div>
+                    <div class="gallery-item-zoom">
+                        <span class="material-icons">zoom_in</span>
+                    </div>
+                </div>
+
+                <!-- Image 5 -->
+                <div class="gallery-item" data-category="amenities">
+                    <img src="images/gallery/gallery-5.jpg" alt="Luxury Bathroom">
+                    <div class="gallery-item-overlay">
+                        <span class="gallery-item-category">Amenities</span>
+                        <h3 class="gallery-item-title">Luxury Bathroom</h3>
+                    </div>
+                    <div class="gallery-item-zoom">
+                        <span class="material-icons">zoom_in</span>
+                    </div>
+                </div>
+
+                <!-- Image 6 -->
+                <div class="gallery-item" data-category="apartments">
+                    <img src="images/gallery/gallery-6.jpg" alt="Living Area">
+                    <div class="gallery-item-overlay">
+                        <span class="gallery-item-category">Apartments</span>
+                        <h3 class="gallery-item-title">Living Area</h3>
+                    </div>
+                    <div class="gallery-item-zoom">
+                        <span class="material-icons">zoom_in</span>
+                    </div>
+                </div>
+
+                <!-- Image 7 -->
+                <div class="gallery-item" data-category="amenities">
+                    <img src="images/gallery/gallery-7.jpg" alt="Kitchen">
+                    <div class="gallery-item-overlay">
+                        <span class="gallery-item-category">Amenities</span>
+                        <h3 class="gallery-item-title">Modern Kitchen</h3>
+                    </div>
+                    <div class="gallery-item-zoom">
+                        <span class="material-icons">zoom_in</span>
+                    </div>
+                </div>
+
+                <!-- Image 8 -->
+                <div class="gallery-item wide" data-category="views">
+                    <img src="images/gallery/gallery-8.jpg" alt="City Panorama">
+                    <div class="gallery-item-overlay">
+                        <span class="gallery-item-category">Views</span>
+                        <h3 class="gallery-item-title">City Panorama</h3>
+                    </div>
+                    <div class="gallery-item-zoom">
+                        <span class="material-icons">zoom_in</span>
+                    </div>
+                </div>
+
+                <!-- Image 9 -->
+                <div class="gallery-item" data-category="apartments">
+                    <img src="images/gallery/gallery-9.jpg" alt="Junior Suite">
+                    <div class="gallery-item-overlay">
+                        <span class="gallery-item-category">Apartments</span>
+                        <h3 class="gallery-item-title">Junior Suite</h3>
+                    </div>
+                    <div class="gallery-item-zoom">
+                        <span class="material-icons">zoom_in</span>
+                    </div>
+                </div>
+
+                <!-- Image 10 -->
+                <div class="gallery-item" data-category="exterior">
+                    <img src="images/gallery/gallery-10.jpg" alt="Building Entrance">
+                    <div class="gallery-item-overlay">
+                        <span class="gallery-item-category">Exterior</span>
+                        <h3 class="gallery-item-title">Entrance</h3>
+                    </div>
+                    <div class="gallery-item-zoom">
+                        <span class="material-icons">zoom_in</span>
+                    </div>
+                </div>
+
+                <!-- Image 11 -->
+                <div class="gallery-item" data-category="views">
+                    <img src="images/gallery/gallery-11.jpg" alt="Sunset View">
+                    <div class="gallery-item-overlay">
+                        <span class="gallery-item-category">Views</span>
+                        <h3 class="gallery-item-title">Sunset</h3>
+                    </div>
+                    <div class="gallery-item-zoom">
+                        <span class="material-icons">zoom_in</span>
+                    </div>
+                </div>
+
+                <!-- Image 12 -->
+                <div class="gallery-item" data-category="apartments">
+                    <img src="images/gallery/gallery-12.jpg" alt="Loft Apartment">
+                    <div class="gallery-item-overlay">
+                        <span class="gallery-item-category">Apartments</span>
+                        <h3 class="gallery-item-title">Loft Space</h3>
+                    </div>
+                    <div class="gallery-item-zoom">
+                        <span class="material-icons">zoom_in</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">YOUR APARTMENTS</a>
+                    <p class="footer-tagline">Luxury Living in the Heart of the City</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook"><span class="material-icons">facebook</span></a>
+                        <a href="#" aria-label="Instagram"><span class="material-icons">photo_camera</span></a>
+                        <a href="#" aria-label="WhatsApp"><span class="material-icons">chat</span></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="rooms.html">Apartments</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Reservations</h4>
+                    <ul>
+                        <li><a href="index.html#booking">Book Now</a></li>
+                        <li><a href="rooms.html">View Rooms</a></li>
+                        <li><a href="#">Cancellation Policy</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-contact">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li>
+                            <span class="material-icons">location_on</span>
+                            <span>Your Address Here, City</span>
+                        </li>
+                        <li>
+                            <span class="material-icons">phone</span>
+                            <a href="tel:+301234567890">+30 123 456 7890</a>
+                        </li>
+                        <li>
+                            <span class="material-icons">email</span>
+                            <a href="mailto:info@yourapartments.com">info@yourapartments.com</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Your Apartments. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <span class="material-icons">keyboard_arrow_up</span>
+    </button>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Gallery Filter Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Update active button
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const filter = btn.dataset.filter;
+
+                    galleryItems.forEach(item => {
+                        if (filter === 'all' || item.dataset.category === filter) {
+                            item.style.display = 'block';
+                            setTimeout(() => {
+                                item.style.opacity = '1';
+                                item.style.transform = 'scale(1)';
+                            }, 50);
+                        } else {
+                            item.style.opacity = '0';
+                            item.style.transform = 'scale(0.8)';
+                            setTimeout(() => {
+                                item.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                });
+            });
+
+            // Initialize gallery items for transitions
+            galleryItems.forEach(item => {
+                item.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            });
+        });
+    </script>
+</body>
+</html>
+

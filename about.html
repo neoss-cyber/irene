@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Your Apartments</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        .about-story {
+            padding: var(--space-2xl) 0;
+            background: var(--color-white);
+        }
+
+        .about-story .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-xl);
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-primary) 100%);
+            min-height: 500px;
+            object-fit: cover;
+        }
+
+        .about-image-badge {
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            width: 150px;
+            height: 150px;
+            background: var(--color-accent);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-primary-dark);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .about-image-badge .number {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            font-weight: 600;
+            line-height: 1;
+        }
+
+        .about-image-badge .text {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .about-text h2 {
+            margin-bottom: var(--space-md);
+        }
+
+        .about-text p {
+            color: var(--color-gray-dark);
+            margin-bottom: var(--space-md);
+            line-height: 1.8;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+            margin-top: var(--space-lg);
+        }
+
+        .about-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-sm);
+        }
+
+        .about-feature-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--color-cream);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .about-feature-icon .material-icons {
+            color: var(--color-accent);
+        }
+
+        .about-feature h4 {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .about-feature p {
+            font-size: 0.875rem;
+            color: var(--color-gray);
+            margin: 0;
+        }
+
+        /* Location Section */
+        .location-section {
+            padding: var(--space-2xl) 0;
+            background: var(--color-off-white);
+        }
+
+        .location-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-xl);
+            align-items: center;
+        }
+
+        .location-text h2 {
+            margin-bottom: var(--space-md);
+        }
+
+        .location-text p {
+            color: var(--color-gray-dark);
+            margin-bottom: var(--space-md);
+            line-height: 1.8;
+        }
+
+        .nearby-places {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+            margin-top: var(--space-lg);
+        }
+
+        .nearby-place {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-sm) var(--space-md);
+            background: var(--color-white);
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nearby-place-name {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .nearby-place-name .material-icons {
+            color: var(--color-accent);
+        }
+
+        .nearby-place-distance {
+            font-size: 0.875rem;
+            color: var(--color-gray);
+        }
+
+        .location-map {
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            height: 450px;
+            background: var(--color-gray-light);
+        }
+
+        .location-map iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: var(--space-xl) 0;
+            background: var(--color-primary);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-lg);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            font-weight: 600;
+            color: var(--color-accent);
+            line-height: 1;
+            margin-bottom: var(--space-xs);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: var(--space-2xl) 0;
+            background: var(--color-white);
+        }
+
+        .team-intro {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto var(--space-xl);
+        }
+
+        .team-intro p {
+            color: var(--color-gray-dark);
+            margin-top: var(--space-md);
+        }
+
+        @media (max-width: 992px) {
+            .about-story .container,
+            .location-content {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image-badge {
+                bottom: 20px;
+                right: 20px;
+                width: 120px;
+                height: 120px;
+            }
+
+            .about-image-badge .number {
+                font-size: 2.5rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: var(--space-md);
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">YOUR APARTMENTS</span>
+            </a>
+            
+            <nav class="nav" id="nav">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="rooms.html" class="nav-link">Apartments</a></li>
+                    <li><a href="about.html" class="nav-link active">About</a></li>
+                    <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <div class="language-selector">
+                    <span class="current-lang">EN</span>
+                    <ul class="lang-dropdown">
+                        <li><a href="#">English</a></li>
+                        <li><a href="#">Ελληνικά</a></li>
+                    </ul>
+                </div>
+                <a href="index.html#booking" class="btn btn-book">Book Now</a>
+            </div>
+
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <span class="section-badge">Our Story</span>
+            <h1 class="section-title">About Us</h1>
+            <nav class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span class="material-icons" style="font-size: 1rem;">chevron_right</span>
+                <span>About</span>
+            </nav>
+        </div>
+    </section>
+
+    <!-- About Story Section -->
+    <section class="about-story">
+        <div class="container">
+            <div class="about-image">
+                <img src="images/about/about-main.jpg" alt="Your Apartments Building">
+                <div class="about-image-badge">
+                    <span class="number">10+</span>
+                    <span class="text">Years</span>
+                </div>
+            </div>
+            <div class="about-text">
+                <span class="section-badge">Welcome</span>
+                <h2>Your Home Away From Home</h2>
+                <p>
+                    <strong>Your Apartments</strong> was founded with a simple vision: 
+                    to provide travelers with a luxurious, comfortable, and memorable 
+                    accommodation experience in the heart of the city.
+                </p>
+                <p>
+                    What started as a passion project has grown into a boutique 
+                    apartment complex that prides itself on personalized service, 
+                    attention to detail, and creating spaces where guests truly 
+                    feel at home.
+                </p>
+                <p>
+                    Our modern apartments blend contemporary design with warm hospitality, 
+                    offering the perfect base for exploring the city's rich culture, 
+                    vibrant nightlife, and stunning attractions.
+                </p>
+
+                <div class="about-features">
+                    <div class="about-feature">
+                        <div class="about-feature-icon">
+                            <span class="material-icons">location_on</span>
+                        </div>
+                        <div>
+                            <h4>Prime Location</h4>
+                            <p>Steps from major attractions</p>
+                        </div>
+                    </div>
+                    <div class="about-feature">
+                        <div class="about-feature-icon">
+                            <span class="material-icons">diamond</span>
+                        </div>
+                        <div>
+                            <h4>Luxury Design</h4>
+                            <p>Modern & elegant interiors</p>
+                        </div>
+                    </div>
+                    <div class="about-feature">
+                        <div class="about-feature-icon">
+                            <span class="material-icons">support_agent</span>
+                        </div>
+                        <div>
+                            <h4>24/7 Support</h4>
+                            <p>Always here to help</p>
+                        </div>
+                    </div>
+                    <div class="about-feature">
+                        <div class="about-feature-icon">
+                            <span class="material-icons">verified</span>
+                        </div>
+                        <div>
+                            <h4>Quality Assured</h4>
+                            <p>Highest standards maintained</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">10+</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Luxury Apartments</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">5K+</div>
+                    <div class="stat-label">Happy Guests</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">4.9</div>
+                    <div class="stat-label">Average Rating</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section class="location-section">
+        <div class="container">
+            <div class="location-content">
+                <div class="location-text">
+                    <span class="section-badge">Location</span>
+                    <h2>Discover Our Neighborhood</h2>
+                    <p>
+                        Situated in the heart of the city, Your Apartments offers 
+                        unparalleled access to the best the city has to offer. 
+                        From historic landmarks to trendy restaurants, everything 
+                        is within easy reach.
+                    </p>
+                    <p>
+                        Whether you're here for business or leisure, our central 
+                        location means you'll spend less time traveling and more 
+                        time experiencing all the wonderful attractions nearby.
+                    </p>
+
+                    <div class="nearby-places">
+                        <div class="nearby-place">
+                            <div class="nearby-place-name">
+                                <span class="material-icons">place</span>
+                                <span>City Center Square</span>
+                            </div>
+                            <span class="nearby-place-distance">2 min walk</span>
+                        </div>
+                        <div class="nearby-place">
+                            <div class="nearby-place-name">
+                                <span class="material-icons">museum</span>
+                                <span>Archaeological Museum</span>
+                            </div>
+                            <span class="nearby-place-distance">5 min walk</span>
+                        </div>
+                        <div class="nearby-place">
+                            <div class="nearby-place-name">
+                                <span class="material-icons">restaurant</span>
+                                <span>Market & Restaurants</span>
+                            </div>
+                            <span class="nearby-place-distance">3 min walk</span>
+                        </div>
+                        <div class="nearby-place">
+                            <div class="nearby-place-name">
+                                <span class="material-icons">beach_access</span>
+                                <span>Waterfront Promenade</span>
+                            </div>
+                            <span class="nearby-place-distance">8 min walk</span>
+                        </div>
+                        <div class="nearby-place">
+                            <div class="nearby-place-name">
+                                <span class="material-icons">directions_bus</span>
+                                <span>Bus Station</span>
+                            </div>
+                            <span class="nearby-place-distance">5 min walk</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="location-map">
+                    <!-- Replace with your actual Google Maps embed -->
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3028.1851872739074!2d22.94277!3d40.63111!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDM3JzUyLjAiTiAyMsKwNTYnMzQuMCJF!5e0!3m2!1sen!2s!4v1234567890" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="container">
+            <div class="team-intro">
+                <span class="section-badge">Our Team</span>
+                <h2>Dedicated to Your Comfort</h2>
+                <p>
+                    Our friendly and professional team is committed to making your 
+                    stay exceptional. From the moment you arrive until your departure, 
+                    we're here to ensure every detail is perfect.
+                </p>
+            </div>
+
+            <div class="amenities-grid" style="grid-template-columns: repeat(4, 1fr);">
+                <div class="amenity-card" style="background: var(--color-cream); border: none;">
+                    <div class="amenity-icon">
+                        <span class="material-icons">concierge</span>
+                    </div>
+                    <h4 style="color: var(--color-primary);">Concierge Service</h4>
+                </div>
+                <div class="amenity-card" style="background: var(--color-cream); border: none;">
+                    <div class="amenity-icon">
+                        <span class="material-icons">cleaning_services</span>
+                    </div>
+                    <h4 style="color: var(--color-primary);">Housekeeping</h4>
+                </div>
+                <div class="amenity-card" style="background: var(--color-cream); border: none;">
+                    <div class="amenity-icon">
+                        <span class="material-icons">room_service</span>
+                    </div>
+                    <h4 style="color: var(--color-primary);">Room Service</h4>
+                </div>
+                <div class="amenity-card" style="background: var(--color-cream); border: none;">
+                    <div class="amenity-icon">
+                        <span class="material-icons">local_taxi</span>
+                    </div>
+                    <h4 style="color: var(--color-primary);">Airport Transfer</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" style="background-image: url('images/cta-bg.jpg');">
+        <div class="cta-overlay"></div>
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Experience Luxury?</h2>
+                <p>Book your stay today and discover the perfect blend of comfort and elegance</p>
+                <a href="index.html#booking" class="btn btn-light">Book Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">YOUR APARTMENTS</a>
+                    <p class="footer-tagline">Luxury Living in the Heart of the City</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook"><span class="material-icons">facebook</span></a>
+                        <a href="#" aria-label="Instagram"><span class="material-icons">photo_camera</span></a>
+                        <a href="#" aria-label="WhatsApp"><span class="material-icons">chat</span></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="rooms.html">Apartments</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Reservations</h4>
+                    <ul>
+                        <li><a href="index.html#booking">Book Now</a></li>
+                        <li><a href="rooms.html">View Rooms</a></li>
+                        <li><a href="#">Cancellation Policy</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-contact">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li>
+                            <span class="material-icons">location_on</span>
+                            <span>Your Address Here, City</span>
+                        </li>
+                        <li>
+                            <span class="material-icons">phone</span>
+                            <a href="tel:+301234567890">+30 123 456 7890</a>
+                        </li>
+                        <li>
+                            <span class="material-icons">email</span>
+                            <a href="mailto:info@yourapartments.com">info@yourapartments.com</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Your Apartments. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <span class="material-icons">keyboard_arrow_up</span>
+    </button>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
+

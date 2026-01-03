@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Apartments | Luxury Stay</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">YOUR APARTMENTS</span>
+            </a>
+            
+            <nav class="nav" id="nav">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link active">Home</a></li>
+                    <li><a href="rooms.html" class="nav-link">Apartments</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <div class="language-selector">
+                    <span class="current-lang">EN</span>
+                    <ul class="lang-dropdown">
+                        <li><a href="#">English</a></li>
+                        <li><a href="#">Ελληνικά</a></li>
+                    </ul>
+                </div>
+                <a href="#booking" class="btn btn-book">Book Now</a>
+            </div>
+
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Slider -->
+    <section class="hero-slider" id="heroSlider">
+        <div class="slides">
+            <div class="slide active" style="background-image: url('images/hero/slide1.jpg');">
+                <div class="slide-overlay"></div>
+            </div>
+            <div class="slide" style="background-image: url('images/hero/slide2.jpg');">
+                <div class="slide-overlay"></div>
+            </div>
+            <div class="slide" style="background-image: url('images/hero/slide3.jpg');">
+                <div class="slide-overlay"></div>
+            </div>
+            <div class="slide" style="background-image: url('images/hero/slide4.jpg');">
+                <div class="slide-overlay"></div>
+            </div>
+        </div>
+        
+        <div class="hero-content">
+            <h1 class="hero-title">Your Apartments</h1>
+            <p class="hero-subtitle">Luxury Living in the Heart of the City</p>
+        </div>
+
+        <div class="slider-controls">
+            <button class="slider-btn prev" aria-label="Previous slide">
+                <span class="material-icons">chevron_left</span>
+            </button>
+            <div class="slider-dots"></div>
+            <button class="slider-btn next" aria-label="Next slide">
+                <span class="material-icons">chevron_right</span>
+            </button>
+        </div>
+
+        <div class="scroll-indicator">
+            <span class="material-icons">keyboard_arrow_down</span>
+        </div>
+    </section>
+
+    <!-- Booking Widget -->
+    <section class="booking-section" id="booking">
+        <div class="container">
+            <form class="booking-form" id="bookingForm">
+                <div class="booking-field">
+                    <label for="checkIn">
+                        <span class="material-icons">calendar_today</span>
+                        Check In
+                    </label>
+                    <input type="date" id="checkIn" name="checkIn" required>
+                </div>
+                
+                <div class="booking-field">
+                    <label for="nights">
+                        <span class="material-icons">nights_stay</span>
+                        Nights
+                    </label>
+                    <select id="nights" name="nights">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3" selected>3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                    </select>
+                </div>
+
+                <div class="booking-field">
+                    <label for="guests">
+                        <span class="material-icons">person</span>
+                        Guests
+                    </label>
+                    <select id="guests" name="guests">
+                        <option value="1">1 Adult</option>
+                        <option value="2" selected>2 Adults</option>
+                        <option value="3">3 Adults</option>
+                        <option value="4">4 Adults</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    <span>Check Availability</span>
+                    <span class="material-icons">arrow_forward</span>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Introduction Section -->
+    <section class="intro-section">
+        <div class="container">
+            <div class="intro-content">
+                <div class="intro-badge">Welcome</div>
+                <h2 class="section-title">Discover Your Perfect Stay</h2>
+                <div class="intro-divider"></div>
+                <p class="intro-text">
+                    <strong>Your Apartments</strong> is located in the heart of the city. 
+                    A breath away from major attractions, shopping centers, restaurants, 
+                    and entertainment venues.
+                </p>
+                <p class="intro-text">
+                    Modern architecture combined with warm hospitality promises you 
+                    a luxurious and comfortable experience throughout your stay.
+                </p>
+                <a href="about.html" class="btn btn-outline">Learn More</a>
+            </div>
+            <div class="intro-image">
+                <img src="images/about/intro-image.jpg" alt="Your Apartments - Exterior View">
+                <div class="intro-image-accent"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Apartments Section -->
+    <section class="apartments-section" id="apartments">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Accommodations</span>
+                <h2 class="section-title">Luxury Apartments</h2>
+                <p class="section-subtitle">Choose from our selection of beautifully designed spaces</p>
+            </div>
+
+            <div class="apartments-grid">
+                <!-- Apartment Card 1 -->
+                <article class="apartment-card">
+                    <div class="apartment-image">
+                        <img src="images/apartments/signature-suite.jpg" alt="Signature Suite">
+                        <div class="apartment-badge">Premium</div>
+                    </div>
+                    <div class="apartment-content">
+                        <span class="apartment-type">Suite</span>
+                        <h3 class="apartment-title">Signature Suite</h3>
+                        <p class="apartment-desc">
+                            The Signature Suite is a unique space combining high standards, 
+                            exceptional design and the most beautiful panoramic views of the city.
+                        </p>
+                        <a href="rooms.html#signature-suite" class="apartment-link">
+                            <span>View Details</span>
+                            <span class="material-icons">arrow_forward</span>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Apartment Card 2 -->
+                <article class="apartment-card">
+                    <div class="apartment-image">
+                        <img src="images/apartments/sea-view.jpg" alt="Sea View Apartment">
+                    </div>
+                    <div class="apartment-content">
+                        <span class="apartment-type">Apartment</span>
+                        <h3 class="apartment-title">Sea View Apartment</h3>
+                        <p class="apartment-desc">
+                            Ready to cover every modern need, combining stunning views 
+                            that guarantee you a truly unforgettable stay.
+                        </p>
+                        <a href="rooms.html#sea-view" class="apartment-link">
+                            <span>View Details</span>
+                            <span class="material-icons">arrow_forward</span>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Apartment Card 3 -->
+                <article class="apartment-card">
+                    <div class="apartment-image">
+                        <img src="images/apartments/junior-suite.jpg" alt="Junior Suite">
+                    </div>
+                    <div class="apartment-content">
+                        <span class="apartment-type">Suite</span>
+                        <h3 class="apartment-title">Junior Suite</h3>
+                        <p class="apartment-desc">
+                            Elegant, comfortable and exceptionally pleasant aesthetically, 
+                            our Junior Suite provides high standards of a modern suite.
+                        </p>
+                        <a href="rooms.html#junior-suite" class="apartment-link">
+                            <span>View Details</span>
+                            <span class="material-icons">arrow_forward</span>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Apartment Card 4 -->
+                <article class="apartment-card">
+                    <div class="apartment-image">
+                        <img src="images/apartments/family-apartment.jpg" alt="Family Apartment">
+                    </div>
+                    <div class="apartment-content">
+                        <span class="apartment-type">Family</span>
+                        <h3 class="apartment-title">Family Apartment</h3>
+                        <p class="apartment-desc">
+                            Ideal for families. The apartment consists of spacious rooms 
+                            providing comfortable beds and modern amenities.
+                        </p>
+                        <a href="rooms.html#family-apartment" class="apartment-link">
+                            <span>View Details</span>
+                            <span class="material-icons">arrow_forward</span>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Apartment Card 5 -->
+                <article class="apartment-card">
+                    <div class="apartment-image">
+                        <img src="images/apartments/loft.jpg" alt="Loft Apartment">
+                    </div>
+                    <div class="apartment-content">
+                        <span class="apartment-type">Loft</span>
+                        <h3 class="apartment-title">Loft Apartment</h3>
+                        <p class="apartment-desc">
+                            Combining contemporary aesthetics and floor-to-ceiling windows, 
+                            adds a bright, light and relaxing feeling to your stay.
+                        </p>
+                        <a href="rooms.html#loft" class="apartment-link">
+                            <span>View Details</span>
+                            <span class="material-icons">arrow_forward</span>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Apartment Card 6 -->
+                <article class="apartment-card">
+                    <div class="apartment-image">
+                        <img src="images/apartments/deluxe.jpg" alt="Deluxe Apartment">
+                    </div>
+                    <div class="apartment-content">
+                        <span class="apartment-type">Deluxe</span>
+                        <h3 class="apartment-title">Deluxe Apartment</h3>
+                        <p class="apartment-desc">
+                            Unique and contemporary design will make your stay 
+                            unforgettable in the center of the city.
+                        </p>
+                        <a href="rooms.html#deluxe" class="apartment-link">
+                            <span>View Details</span>
+                            <span class="material-icons">arrow_forward</span>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Apartment Card 7 -->
+                <article class="apartment-card">
+                    <div class="apartment-image">
+                        <img src="images/apartments/studio.jpg" alt="Studio Apartment">
+                    </div>
+                    <div class="apartment-content">
+                        <span class="apartment-type">Studio</span>
+                        <h3 class="apartment-title">Studio Apartment</h3>
+                        <p class="apartment-desc">
+                            The ideal space to savor your stay, 
+                            perfect for enjoying nice moments of relaxation.
+                        </p>
+                        <a href="rooms.html#studio" class="apartment-link">
+                            <span>View Details</span>
+                            <span class="material-icons">arrow_forward</span>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Apartment Card 8 -->
+                <article class="apartment-card">
+                    <div class="apartment-image">
+                        <img src="images/apartments/urban.jpg" alt="Urban Apartment">
+                    </div>
+                    <div class="apartment-content">
+                        <span class="apartment-type">Urban</span>
+                        <h3 class="apartment-title">Urban Apartment</h3>
+                        <p class="apartment-desc">
+                            Modern comfort meets city living in our thoughtfully 
+                            designed urban apartments.
+                        </p>
+                        <a href="rooms.html#urban" class="apartment-link">
+                            <span>View Details</span>
+                            <span class="material-icons">arrow_forward</span>
+                        </a>
+                    </div>
+                </article>
+            </div>
+
+            <div class="apartments-cta">
+                <a href="rooms.html" class="btn btn-primary">View All Apartments</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Amenities Section -->
+    <section class="amenities-section">
+        <div class="container">
+            <div class="section-header light">
+                <span class="section-badge">Services</span>
+                <h2 class="section-title">Amenities & Services</h2>
+                <p class="section-subtitle">
+                    Enjoy your stay discovering the city and its unique beauty. 
+                    Our staff offers warm hospitality and personalized services, always with a smile.
+                </p>
+            </div>
+
+            <div class="info-boxes">
+                <div class="info-box">
+                    <span class="material-icons">schedule</span>
+                    <div class="info-content">
+                        <strong>Check-In</strong>
+                        <span>3:00 PM</span>
+                    </div>
+                </div>
+                <div class="info-box">
+                    <span class="material-icons">logout</span>
+                    <div class="info-content">
+                        <strong>Check-Out</strong>
+                        <span>11:00 AM</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="amenities-grid">
+                <div class="amenity-card">
+                    <div class="amenity-icon">
+                        <span class="material-icons">landscape</span>
+                    </div>
+                    <h4>Sea View</h4>
+                </div>
+
+                <div class="amenity-card">
+                    <div class="amenity-icon">
+                        <span class="material-icons">wifi</span>
+                    </div>
+                    <h4>Free Wi-Fi</h4>
+                </div>
+
+                <div class="amenity-card">
+                    <div class="amenity-icon">
+                        <span class="material-icons">support_agent</span>
+                    </div>
+                    <h4>24h Reception</h4>
+                </div>
+
+                <div class="amenity-card">
+                    <div class="amenity-icon">
+                        <span class="material-icons">cleaning_services</span>
+                    </div>
+                    <h4>Cleaning Service</h4>
+                </div>
+
+                <div class="amenity-card">
+                    <div class="amenity-icon">
+                        <span class="material-icons">luggage</span>
+                    </div>
+                    <h4>Luggage Storage</h4>
+                </div>
+
+                <div class="amenity-card">
+                    <div class="amenity-icon">
+                        <span class="material-icons">local_laundry_service</span>
+                    </div>
+                    <h4>Laundry</h4>
+                </div>
+
+                <div class="amenity-card">
+                    <div class="amenity-icon">
+                        <span class="material-icons">computer</span>
+                    </div>
+                    <h4>PC Corner</h4>
+                </div>
+
+                <div class="amenity-card">
+                    <div class="amenity-icon">
+                        <span class="material-icons">alarm</span>
+                    </div>
+                    <h4>Wake Up Service</h4>
+                </div>
+
+                <div class="amenity-card">
+                    <div class="amenity-icon">
+                        <span class="material-icons">flash_on</span>
+                    </div>
+                    <h4>Express Check-in</h4>
+                </div>
+
+                <div class="amenity-card">
+                    <div class="amenity-icon">
+                        <span class="material-icons">child_friendly</span>
+                    </div>
+                    <h4>Baby Beds</h4>
+                </div>
+
+                <div class="amenity-card">
+                    <div class="amenity-icon">
+                        <span class="material-icons">tv</span>
+                    </div>
+                    <h4>Smart TV</h4>
+                </div>
+
+                <div class="amenity-card">
+                    <div class="amenity-icon">
+                        <span class="material-icons">ac_unit</span>
+                    </div>
+                    <h4>Air Conditioning</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta-section" style="background-image: url('images/cta-bg.jpg');">
+        <div class="cta-overlay"></div>
+        <div class="container">
+            <div class="cta-content">
+                <h2>Enjoy a Luxury Experience</h2>
+                <p>Book your stay today and discover the perfect blend of comfort and elegance</p>
+                <a href="#booking" class="btn btn-light">Book Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">YOUR APARTMENTS</a>
+                    <p class="footer-tagline">Luxury Living in the Heart of the City</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook"><span class="material-icons">facebook</span></a>
+                        <a href="#" aria-label="Instagram"><span class="material-icons">photo_camera</span></a>
+                        <a href="#" aria-label="WhatsApp"><span class="material-icons">chat</span></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="rooms.html">Apartments</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Reservations</h4>
+                    <ul>
+                        <li><a href="#booking">Book Now</a></li>
+                        <li><a href="rooms.html">View Rooms</a></li>
+                        <li><a href="#">Cancellation Policy</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-contact">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li>
+                            <span class="material-icons">location_on</span>
+                            <span>Your Address Here, City</span>
+                        </li>
+                        <li>
+                            <span class="material-icons">phone</span>
+                            <a href="tel:+301234567890">+30 123 456 7890</a>
+                        </li>
+                        <li>
+                            <span class="material-icons">email</span>
+                            <a href="mailto:info@yourapartments.com">info@yourapartments.com</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Your Apartments. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <span class="material-icons">keyboard_arrow_up</span>
+    </button>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
+
