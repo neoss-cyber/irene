@@ -305,12 +305,13 @@ function initAnimations() {
 document.querySelectorAll('.lang-dropdown a').forEach(link => {
     link.addEventListener('click', function(e) {
         e.preventDefault();
-        const selectedLang = this.textContent;
+        const lang = this.getAttribute('data-lang') || 'en';
+        const langCodes = { en: 'EN', it: 'IT', de: 'DE' };
         const currentLangSpan = document.querySelector('.current-lang');
         if (currentLangSpan) {
-            currentLangSpan.textContent = selectedLang === 'English' ? 'EN' : 'GR';
+            currentLangSpan.textContent = langCodes[lang] || 'EN';
         }
-        // You can add actual language switching logic here
+        // You can add actual language switching logic here (e.g. redirect to translated pages)
     });
 });
 
