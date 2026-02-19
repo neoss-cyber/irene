@@ -280,11 +280,11 @@
             
             <nav class="nav" id="nav">
                 <ul class="nav-list">
-                    <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="rooms.html" class="nav-link">Apartments</a></li>
-                    <li><a href="about.html" class="nav-link active">About</a></li>
-                    <li><a href="gallery.html" class="nav-link">Gallery</a></li>
-                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li><a href="index.html" class="nav-link" data-i18n="nav.home">Home</a></li>
+                    <li><a href="rooms.html" class="nav-link" data-i18n="nav.apartments">Apartments</a></li>
+                    <li><a href="about.html" class="nav-link active" data-i18n="nav.about">About</a></li>
+                    <li><a href="gallery.html" class="nav-link" data-i18n="nav.gallery">Gallery</a></li>
+                    <li><a href="contact.html" class="nav-link" data-i18n="nav.contact">Contact</a></li>
                 </ul>
             </nav>
 
@@ -297,7 +297,7 @@
                         <li><a href="#" data-lang="de">Deutsch</a></li>
                     </ul>
                 </div>
-                <a href="index.html#booking" class="btn btn-book">Book Now</a>
+                <a href="index.html#booking" class="btn btn-book" data-i18n="nav.bookNow">Book Now</a>
             </div>
 
             <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
@@ -332,19 +332,19 @@
                 </div>
             </div>
             <div class="about-text">
-                <span class="section-badge">Welcome</span>
-                <h2>Your Home Away From Home</h2>
-                <p>
+                <span class="section-badge" data-i18n="about.badge">Welcome</span>
+                <h2 data-i18n="about.title">Your Home Away From Home</h2>
+                <p data-i18n="about.text1">
                     <strong>Irene Apartments</strong> was founded with a simple vision: 
                     to provide travelers with a comfortable and memorable 
                     accommodation experience in the heart of the city of Acharavi.
                 </p>
-                <p>
+                <p data-i18n="about.text2">
                     What started as a passion project has grown into an 
                     apartment complex that prides itself on attention to detail, and creating spaces where guests truly 
                     feel at home.
                 </p>
-                <p>
+                <p data-i18n="about.text3">
                     Our modern apartments blend contemporary design with warm hospitality, 
                     offering the perfect base for exploring Corfu's rich culture, 
                     vibrant nightlife, and stunning attractions.
@@ -356,8 +356,8 @@
                             <span class="material-icons">location_on</span>
                         </div>
                         <div>
-                            <h4>Prime Location</h4>
-                            <p>Steps from major attractions</p>
+                            <h4 data-i18n="about.primeLocation">Prime Location</h4>
+                            <p data-i18n="about.primeDesc">Steps from major attractions</p>
                         </div>
                     </div>
                     <div class="about-feature">
@@ -365,8 +365,8 @@
                             <span class="material-icons">diamond</span>
                         </div>
                         <div>
-                            <h4>Local Character</h4>
-                            <p>Modern & elegant interiors</p>
+                            <h4 data-i18n="about.localCharacter">Local Character</h4>
+                            <p data-i18n="about.localDesc">Modern & elegant interiors</p>
                         </div>
                     </div>
                     <div class="about-feature">
@@ -374,8 +374,8 @@
                             <span class="material-icons">support_agent</span>
                         </div>
                         <div>
-                            <h4>24/7 Support</h4>
-                            <p>Always here to help</p>
+                            <h4 data-i18n="about.support">24/7 Support</h4>
+                            <p data-i18n="about.supportDesc">Always here to help</p>
                         </div>
                     </div>
                     <div class="about-feature">
@@ -383,8 +383,8 @@
                             <span class="material-icons">verified</span>
                         </div>
                         <div>
-                            <h4>Quality Assured</h4>
-                            <p>Highest standards maintained</p>
+                            <h4 data-i18n="about.quality">Quality Assured</h4>
+                            <p data-i18n="about.qualityDesc">Highest standards maintained</p>
                         </div>
                     </div>
                 </div>
@@ -545,7 +545,7 @@
             <div class="footer-grid">
                 <div class="footer-brand">
                     <a href="index.html" class="footer-logo">IRENE APARTMENTS</a>
-                    <p class="footer-tagline">Home Starts Here</p>
+                    <p class="footer-tagline" data-i18n="footer.tagline">Home Starts Here</p>
                     <div class="footer-social">
                         <a href="#" aria-label="Facebook"><span class="material-icons">facebook</span></a>
                         <a href="#" aria-label="Instagram"><span class="material-icons">photo_camera</span></a>
@@ -608,6 +608,7 @@
         <span class="material-icons">keyboard_arrow_up</span>
     </button>
 
+    <script src="js/translations.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>

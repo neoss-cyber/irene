@@ -12,6 +12,10 @@ document.addEventListener('DOMContentLoaded', function() {
     initBackToTop();
     initSmoothScroll();
     initAnimations();
+    // Apply saved language
+    if (typeof translations !== 'undefined') {
+        translatePage();
+    }
 });
 
 /**
@@ -302,18 +306,54 @@ function initAnimations() {
 /**
  * Language selector functionality
  */
+// Translation system
+function getCurrentLang() {
+    return localStorage.getItem('irene-lang') || 'en';
+}
+
+function setCurrentLang(lang) {
+    localStorage.setItem('irene-lang', lang);
+}
+
+function translatePage() {
+    const lang = getCurrentLang();
+    if (typeof translations === 'undefined') return;
+    
+    const t = translations[lang] || translations.en;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        const text = t[key];
+        if (text) {
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                if (el.placeholder !== undefined) el.placeholder = text;
+            } else if (el.tagName === 'OPTION') {
+                el.textContent = text;
+            } else {
+                el.textContent = text;
+            }
+        }
+    });
+    
+    // Update lang selector display
+    const langCodes = { en: 'EN', it: 'IT', de: 'DE' };
+    const currentLangSpan = document.querySelector('.current-lang');
+    if (currentLangSpan) {
+        currentLangSpan.textContent = langCodes[lang] || 'EN';
+    }
+    
+    // Update html lang attribute
+    document.documentElement.lang = lang === 'en' ? 'en' : lang === 'it' ? 'it' : 'de';
+}
+
 document.querySelectorAll('.lang-dropdown a').forEach(link => {
     link.addEventListener('click', function(e) {
         e.preventDefault();
         const lang = this.getAttribute('data-lang') || 'en';
-        const langCodes = { en: 'EN', it: 'IT', de: 'DE' };
-        const currentLangSpan = document.querySelector('.current-lang');
-        if (currentLangSpan) {
-            currentLangSpan.textContent = langCodes[lang] || 'EN';
-        }
-        // You can add actual language switching logic here (e.g. redirect to translated pages)
+        setCurrentLang(lang);
+        translatePage();
     });
 });
+
 
 /**
  * Gallery lightbox functionality (for gallery page)
