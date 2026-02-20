@@ -33,7 +33,7 @@ const translations = {
     'booking.4Adults': '4 Adults',
     'intro.welcome': 'Welcome',
     'intro.title': 'Discover Your Perfect Stay',
-    'intro.text1': 'Irene Apartments is located in the heart of the city. A breath away from major attractions, shopping centers, restaurants, and entertainment venues.',
+    'intro.text1': 'Irene Corfu Acharavi (Irene Apartments) is located in Acharavi, Corfu. A breath away from the beach, restaurants, shopping and local attractions.',
     'intro.text2': 'Modern architecture combined with warm hospitality promises you a convenient and comfortable experience throughout your stay.',
     'intro.learnMore': 'Learn More',
     'section.accommodations': 'Accommodations',
