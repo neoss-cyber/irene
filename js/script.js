@@ -180,14 +180,14 @@ function initHeroSlider() {
 }
 
 /**
- * Booking form functionality
+ * Booking form functionality – redirects to Booking.com with dates and guests
  */
 function initBookingForm() {
     const form = document.getElementById('bookingForm');
     if (!form) return;
 
     const checkInInput = form.querySelector('#checkIn');
-    
+
     // Set minimum date to today
     if (checkInInput) {
         const today = new Date().toISOString().split('T')[0];
@@ -197,21 +197,37 @@ function initBookingForm() {
 
     form.addEventListener('submit', (e) => {
         e.preventDefault();
-        
+
         const formData = new FormData(form);
         const checkIn = formData.get('checkIn');
-        const nights = formData.get('nights');
-        const guests = formData.get('guests');
+        const nights = parseInt(formData.get('nights'), 10) || 1;
+        const guests = formData.get('guests') || '2';
 
-        // You can customize this to integrate with your booking system
-        // For now, we'll show an alert and could redirect to booking platform
-        console.log('Booking request:', { checkIn, nights, guests });
-        
-        // Example: redirect to booking platform or show modal
-        alert(`Thank you for your interest!\n\nCheck-in: ${checkIn}\nNights: ${nights}\nGuests: ${guests}\n\nWe will redirect you to our booking system.`);
-        
-        // Uncomment below to redirect to an external booking system
-        // window.location.href = `https://your-booking-platform.com?checkin=${checkIn}&nights=${nights}&guests=${guests}`;
+        // Get Booking.com URL from form (edit data-booking-url in index.html with your real listing)
+        let baseUrl = form.getAttribute('data-booking-url') || '';
+        baseUrl = baseUrl.replace(/#.*$/, '').replace(/\?.*$/, ''); // strip hash and existing query
+
+        if (!baseUrl) {
+            alert('Booking link not configured. Please set data-booking-url on the form.');
+            return;
+        }
+
+        // Compute checkout date (checkIn + nights)
+        const checkInDate = new Date(checkIn + 'T12:00:00');
+        const checkOutDate = new Date(checkInDate);
+        checkOutDate.setDate(checkOutDate.getDate() + nights);
+        const checkout = checkOutDate.toISOString().split('T')[0];
+
+        // Booking.com URL params (checkin, checkout, group_adults, group_children=0)
+        const params = new URLSearchParams({
+            checkin: checkIn,
+            checkout: checkout,
+            group_adults: guests,
+            group_children: '0'
+        });
+        const bookingUrl = baseUrl + (baseUrl.includes('?') ? '&' : '?') + params.toString();
+
+        window.location.href = bookingUrl;
     });
 }
 
