@@ -579,7 +579,7 @@ h4 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
    ===================================================== */
 .booking-section {
     background: var(--color-primary);
-    padding: var(--space-lg) 0;
+    padding: var(--space-lg) 0 var(--space-sm) 0;
     margin-top: -60px;
     position: relative;
     z-index: 20;
@@ -637,6 +637,27 @@ h4 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
 .booking-form .btn-primary {
     flex-shrink: 0;
     padding: 0.875rem 2rem;
+}
+
+.booking-help {
+    text-align: center;
+    margin: var(--space-xs) 0 0;
+    padding: var(--space-xs) var(--space-md) 0 var(--space-md);
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.booking-help a {
+    color: var(--color-accent-light);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.booking-help a:hover {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
 }
 
 /* =====================================================
