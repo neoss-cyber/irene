@@ -12,6 +12,12 @@
     <meta property="og:url" content="https://irenecorfu.com/">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="en_GB">
+    <meta property="og:image" content="https://irenecorfu.com/images/hero/slide1.jpg">
+    <meta property="og:image:alt" content="Irene Apartments Corfu – holiday apartments in Acharavi">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Irene Corfu Acharavi | Irene Apartments Corfu">
+    <meta name="twitter:description" content="Irene Corfu Acharavi – holiday apartments in Acharavi, Corfu. Book direct. Near the beach and attractions.">
+    <meta name="twitter:image" content="https://irenecorfu.com/images/hero/slide1.jpg">
     <link rel="icon" type="image/png" sizes="48x48" href="favicon-48x48.png">
     <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="144x144" href="favicon-144x144.png">
@@ -22,24 +28,47 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "LodgingBusiness",
-      "name": "Irene Apartments",
-      "alternateName": ["Irene Corfu", "Irene Corfu Acharavi"],
-      "description": "Irene Apartments in Acharavi, Corfu – holiday apartments near the beach, restaurants and attractions.",
-      "url": "https://irenecorfu.com",
-      "logo": "https://irenecorfu.com/favicon-512.png",
-      "image": "https://irenecorfu.com/images/hero/slide1.jpg",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Acharavi",
-        "addressRegion": "Corfu",
-        "addressCountry": "GR"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 39.7936,
-        "longitude": 19.7836
-      }
+      "@graph": [
+        {
+          "@type": "LodgingBusiness",
+          "@id": "https://irenecorfu.com/#lodging",
+          "name": "Irene Apartments",
+          "alternateName": ["Irene Corfu", "Irene Corfu Acharavi", "Irene Apartments Corfu"],
+          "description": "Irene Apartments in Acharavi, Corfu – holiday apartments near the beach, restaurants and attractions.",
+          "url": "https://irenecorfu.com",
+          "logo": "https://irenecorfu.com/favicon-512.png",
+          "image": ["https://irenecorfu.com/images/hero/slide1.jpg"],
+          "telephone": "+306976447997",
+          "email": "info@irene-acharavi.gr",
+          "priceRange": "€€",
+          "sameAs": ["https://www.irene-acharavi.gr/"],
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Acharavi",
+            "addressRegion": "Corfu",
+            "postalCode": "490 81",
+            "addressCountry": "GR"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 39.7936,
+            "longitude": 19.7836
+          },
+          "areaServed": [
+            { "@type": "City", "name": "Acharavi" },
+            { "@type": "AdministrativeArea", "name": "Corfu" }
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://irenecorfu.com/#website",
+          "url": "https://irenecorfu.com",
+          "name": "Irene Apartments Corfu",
+          "description": "Official site for Irene Apartments holiday rental in Acharavi, Corfu.",
+          "inLanguage": "en",
+          "publisher": { "@id": "https://irenecorfu.com/#lodging" }
+        }
+      ]
     }
     </script>
     <link rel="stylesheet" href="css/styles.css">

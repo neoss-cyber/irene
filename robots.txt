@@ -1,3 +1,4 @@
+# Irene Apartments Corfu (irenecorfu.com) – allow full crawl for search engines
 User-agent: *
 Allow: /
 
